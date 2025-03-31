@@ -6,7 +6,6 @@ public class IndexPage extends BasePage {
 
     private By buttonLogin = By.cssSelector("input.button-pro");
     private By buttonRegistration = By.cssSelector(".mb-3x");
-    private By messageRegistration = By.cssSelector(".ext-registration_h");
     private By fieldEmail = By.cssSelector("#field_email");
     private By fieldPassword = By.cssSelector("#field_password");
 

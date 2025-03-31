@@ -3,6 +3,8 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.IOException;
+
 public class FirstTest {
     private WebDriver driver;
     IndexPage page;
@@ -32,9 +34,10 @@ public class FirstTest {
     }
 
     @Test
-    public void Test2(){
+    public void Test2() throws IOException {
         String expected = "https://ok.ru/dk?st.cmd=anonym2FAPhoneConfirm";
-        String actual = page.authorize("ma-x-us@bk.ru","Ui83nhdjfyu74").getPageUrl();
+        String actual = page.authorize(new ConfProperties().getDetails("login"),
+                new ConfProperties().getDetails("password")).getPageUrl();
         Assertions.assertEquals(expected,actual);
     }
 }
