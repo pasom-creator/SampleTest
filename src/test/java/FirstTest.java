@@ -1,29 +1,27 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
 
 public class FirstTest {
-    private WebDriver driver;
     private SignInPage page;
 
     @BeforeAll
-    public static void SetupDriver() {
-        WebDriverManager.firefoxdriver().setup();
+    public static void setupConfig() {
+        Configuration.browser = "firefox";
+        Configuration.timeout = 8000;
+        Configuration.headless = false;
     }
 
     @BeforeEach
     public void setUp() {
-        driver = new FirefoxDriver();
-        page = new SignInPage(driver);
+        page = new SignInPage();
         page.open();
     }
 
     @AfterEach
     public void close() {
-        driver.close();
+        System.out.println("Test finished.");
     }
 
     @Test
@@ -36,8 +34,8 @@ public class FirstTest {
     @Test
     public void test2() throws IOException {
         String expected = "https://ok.ru/dk?st.cmd=anonym2FAPhoneConfirm";
-        String actual = page.authorize(new ConfProperties().getDetails("login"),
-                new ConfProperties().getDetails("password")).getCurrentPageUrl();
+        String actual = page.authorize(ConfProperties.getDetails("login"),
+                ConfProperties.getDetails("password")).getCurrentPageUrl();
         Assertions.assertEquals(expected, actual);
     }
 
