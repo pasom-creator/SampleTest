@@ -1,3 +1,5 @@
+package appconfigs;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ public class ConfProperties {
 
     public static String getDetails(String details) throws IOException {
         Properties props = new Properties();
-        InputStream file = new FileInputStream(new File("src/main/resources/config.properties"));
+        InputStream file = new FileInputStream(new File("src/test/resources/config.properties"));
         props.load(file);
         return props.getProperty(details);
     }
