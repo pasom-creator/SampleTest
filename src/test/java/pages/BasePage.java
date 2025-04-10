@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.webdriver;
 
 public abstract class BasePage {
 
@@ -21,7 +20,4 @@ public abstract class BasePage {
         $(elementBy).should(exist).shouldHave(text(text));
     }
 
-    public String getCurrentPageUrl() {
-        return webdriver().driver().url();
-    }
 }
