@@ -19,15 +19,15 @@ public class TestLoginPage extends BaseTest {
     @Test
     @Tag("Login")
     public void LoginTest() {
-        assertTrue(page.authorize(userLogin, userPassword).checkCurrentUser());
+        assertTrue(page.loginAndRedirect(userLogin, userPassword).isHaveElement());
     }
 
     @Test
     @Tag("Login")
     public void twoFauthTest() {
         assertAll("2FA page tests",
-                () -> page.smsAuthorization(ConfProperties.getDetails("login"),
-                        ConfProperties.getDetails("password")).findSmsButton(),
+                () -> assertTrue(page.loginAndRedirect(ConfProperties.getDetails("login"),
+                        ConfProperties.getDetails("password")).isHaveElement()),
                 () -> assertEquals(expectedUrl, url()));
     }
 
@@ -36,16 +36,16 @@ public class TestLoginPage extends BaseTest {
     @Tag("Login")
     @Tag("negative")
     public void NegativeTestWrongPassword() {
-        page.wrongInput(userLogin, wrongPassword);
-        assertTrue(page.isError());
+        page.loginAndRedirect(userLogin, wrongPassword);
+        assertTrue(page.isHaveElement());
     }
 
     @Test
     @Tag("Login")
     @Tag("negative")
     public void NegativeTestWrongUsername() {
-        page.wrongInput(wrongLogin, userPassword);
-        assertTrue(page.isError());
+        page.loginAndRedirect(wrongLogin, userPassword);
+        assertTrue(page.isHaveElement());
     }
 
 }

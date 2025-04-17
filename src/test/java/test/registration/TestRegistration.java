@@ -11,6 +11,6 @@ public class TestRegistration extends BaseTest {
     @DisplayName("Test registration")
     @Test
     public void newUserRegistrationTest() {
-        assertTrue(page.goToRegistrationPage().checkPageHeader());
+        assertTrue(page.goToRegistrationPage().isHaveElement());
     }
 }

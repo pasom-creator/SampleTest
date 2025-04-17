@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class SignInPage extends BasePage {
@@ -18,27 +19,27 @@ public class SignInPage extends BasePage {
         click(buttonLogin);
     }
 
-    public boolean isError() {
-        return $(errorField).exists();
-    }
-
-    public HomePage authorize(String login, String password) {
+    public BasePage loginAndRedirect(String login, String password) {
         login(login, password);
-        return new HomePage();
-    }
 
-    public SignInPage wrongInput(String login, String password) {
-        login(login, password);
+        if (isHaveElement()) {
+            return this;
+        } else if ($(smsButton).is(visible)) {
+            return new SmsAuthPage();
+        } else if ($(userField).is(visible)) {
+            return new HomePage();
+        }
+
         return this;
-    }
-
-    public SmsAuthPage smsAuthorization(String login, String password) {
-        login(login, password);
-        return new SmsAuthPage();
     }
 
     public RegistrationPage goToRegistrationPage() {
         click(buttonRegistration);
         return new RegistrationPage();
+    }
+
+    @Override
+    public boolean isHaveElement() {
+        return $(errorField).exists();
     }
 }

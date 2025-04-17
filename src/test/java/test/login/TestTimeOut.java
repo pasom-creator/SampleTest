@@ -6,7 +6,7 @@ import test.BaseTest;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTimeOut extends BaseTest {
 
@@ -17,7 +17,7 @@ public class TestTimeOut extends BaseTest {
     @Tag("Login")
     public void assertTimeoutWithMessageTest() {
         assertTimeout(Duration.ofSeconds(15), () -> {
-            page.authorize(userLogin, userPassword).checkCurrentUser();
+            assertTrue(page.loginAndRedirect(userLogin, userPassword).isHaveElement());
         }, "Performance issue.");
     }
 }
