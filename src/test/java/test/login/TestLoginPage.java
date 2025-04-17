@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import test.BaseTest;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,33 +18,33 @@ public class TestLoginPage extends BaseTest {
 
     @Test
     @Tag("Login")
-    public void TestLogin() {
-        page.authorize(userLogin, userPassword).getCurrentUser();
+    public void LoginTest() {
+        assertTrue(page.authorize(userLogin, userPassword).checkCurrentUser());
     }
 
     @Test
     @Tag("Login")
-    public void Test2Fauth()throws IOException {
+    public void twoFauthTest() {
         assertAll("2FA page tests",
-                ()-> page.smsAuthorization(ConfProperties.getDetails("login"),
+                () -> page.smsAuthorization(ConfProperties.getDetails("login"),
                         ConfProperties.getDetails("password")).findSmsButton(),
-                ()->assertEquals(expectedUrl,url()));
+                () -> assertEquals(expectedUrl, url()));
     }
 
 
     @Test
     @Tag("Login")
     @Tag("negative")
-    public void TestNegativeWrongPassword(){
-        page.wrongInput(userLogin,wrongPassword);
+    public void NegativeTestWrongPassword() {
+        page.wrongInput(userLogin, wrongPassword);
         assertTrue(page.isError());
     }
 
     @Test
     @Tag("Login")
     @Tag("negative")
-    public void TestNegativeWrongUsername(){
-        page.wrongInput(wrongLogin,userPassword);
+    public void NegativeTestWrongUsername() {
+        page.wrongInput(wrongLogin, userPassword);
         assertTrue(page.isError());
     }
 

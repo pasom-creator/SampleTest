@@ -15,9 +15,9 @@ public class TestTimeOut extends BaseTest {
 
     @Test
     @Tag("Login")
-    public void assertTimeoutWithMessage() {
-        assertTimeout(Duration.ofSeconds(15),() -> {
-            page.authorize(userLogin, userPassword).getCurrentUser();
+    public void assertTimeoutWithMessageTest() {
+        assertTimeout(Duration.ofSeconds(15), () -> {
+            page.authorize(userLogin, userPassword).checkCurrentUser();
         }, "Performance issue.");
     }
 }
